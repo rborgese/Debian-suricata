@@ -1,10 +1,10 @@
 wget http://www.openinfosecfoundation.org/download/suricata-4.0.4.tar.gz
-tar -xvzf suricata-3.1.tar.gz
-cd suricata-3.1
+tar -xvzf suricata-4.0.4.tar.gz
+cd suricata-4.0.4
 
 ./configure --enable-nfqueue --prefix=/usr --sysconfdir=/etc --localstatedir=/var
 make
 sudo checkinstall
 
-rm -r suricata-3.1.tar.gz
-rm -r suricata-3.1
+sudo rm -r suricata-4.0.4.tar.gz
+sudo rm -r suricata-4.0.4
