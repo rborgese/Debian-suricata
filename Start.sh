@@ -1,4 +1,6 @@
-chmod +x suricata.sh
+chmod +x deps_suricata.sh
 chmod +x installSuricata.sh
+chmod +x startSuricata.sh
+chmod +x rm_makeSuricata.sh
 
-./suricata.sh
+./deps_suricata.sh
