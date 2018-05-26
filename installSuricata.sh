@@ -4,7 +4,7 @@ cd suricata-3.1
 
 ./configure --enable-nfqueue --prefix=/usr --sysconfdir=/etc --localstatedir=/var
 make
-sudo make install-full
+sudo checkinstall
 
 rm -r suricata-3.1.tar.gz
 rm -r suricata-3.1
