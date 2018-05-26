@@ -1,4 +1,4 @@
-cd suricata-3.1
+cd suricata-4.0.4
 
 sudo make uninstall
 sudo make clean
