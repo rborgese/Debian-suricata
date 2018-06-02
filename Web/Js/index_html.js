@@ -4,8 +4,10 @@ function Testbutton()
 {
   const button = $("#Test").click(function ()
   {
-    // test
-    console.log("test")
+    $.get("Shell/Start.sh", function (data)
+    {
+      alert("Data: " + data)
+    })
   })
 }
 
