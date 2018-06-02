@@ -1,0 +1,62 @@
+from http.server import BaseHTTPRequestHandler,HTTPServer
+
+PORT = 8080
+
+# This class will handle any incoming requests
+class Handler(BaseHTTPRequestHandler):
+
+	# Handler for the GET requests
+	def do_GET(self):
+		if self.path == "/":
+			self.path = "/Web/index.html"
+
+		if self.path == "/Shell/Start.sh":
+			print("test")
+
+		try:
+			# Check the file extension and set mime type
+
+			sendReply = False
+			if self.path.endswith(".html"):
+				mimetype = "text/html"
+				sendReply = True
+			if self.path.endswith(".jpg"):
+				mimetype = "image/jpg"
+				sendReply = True
+			if self.path.endswith(".gif"):
+				mimetype = "image/gif"
+				sendReply = True
+			if self.path.endswith(".js"):
+				mimetype = "application/javascript"
+				sendReply = True
+			if self.path.endswith(".css"):
+				mimetype = 'text/css'
+				sendReply = True
+
+			if sendReply == True:
+				# Open the static file requested and send it with the correct mimetype
+				open_file = open(self.path[1:])
+				self.send_response(200)
+				self.send_header('Content-type',mimetype)
+				self.end_headers()
+				self.wfile.write(bytes(open_file.read(), "utf-8"))
+				open_file.close()
+			return
+
+
+		# Output error if the file doesn't exist
+		except IOError:
+			self.send_error(404,'File Not Found: %s' % self.path)
+
+try:
+	# Create a server and define the handler for requests
+	server = HTTPServer(('', PORT), Handler)
+	print ('Started httpserver on port ' , PORT)
+
+	# Wait for incoming requests
+	server.serve_forever()
+
+except KeyboardInterrupt:
+	# Disconnect on CTRL + C
+	print (' ======> Disconnect received, shutting down the server')
+	server.socket.close()
