@@ -1,4 +1,5 @@
 from http.server import BaseHTTPRequestHandler,HTTPServer
+from factorial_test import find_factorial
 
 PORT = 8080
 
@@ -7,11 +8,19 @@ class Handler(BaseHTTPRequestHandler):
 
 	# Handler for the GET requests
 	def do_GET(self):
-		if self.path == "/":
+		if self.path == "/home" or self.path == "/":
 			self.path = "/Web/index.html"
+		if self.path == "/help":
+			self.path = "/Web/html/help/help.html"
+		if self.path == "/help/gettingStarted":
+			self.path = "/Web/html/help/gettingStarted.html"
+		if self.path == "/help/userGuide":
+			self.path = "/Web/html/help/userGuide.html"
 
 		if self.path == "/Shell/Start.sh":
-			print("test")
+			self.path = "/Web/index.html"
+			print("Test")
+			#find_factorial(77999)
 
 		try:
 			# Check the file extension and set mime type
