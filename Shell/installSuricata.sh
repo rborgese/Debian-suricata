@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 wget http://www.openinfosecfoundation.org/download/suricata-4.0.4.tar.gz
 
 tar -xvzf suricata-4.0.4.tar.gz
@@ -10,4 +11,3 @@ sudo checkinstall
 cd ..
 
 sudo rm -r suricata-4.0.4.tar.gz
-sudo rm -r suricata-4.0.4
