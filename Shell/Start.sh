@@ -1,8 +1,9 @@
-chmod +x deps_suricata.sh
-chmod +x installSuricata.sh
-chmod +x startSuricata.sh
-chmod +x rm_makeSuricata.sh
-chmod +x rm_checkSuricata.sh
-chmod +x tail_suricata.sh
+#!/usr/bin/env bash
+chmod u+x Shell/deps_suricata.sh
+chmod u+x Shell/installSuricata.sh
+chmod u+x Shell/startSuricata.sh
+chmod u+x Shell/rm_makeSuricata.sh
+chmod u+x Shell/rm_checkSuricata.sh
+chmod u+x Shell/tail_suricata.sh
 
-./deps_suricata.sh
+# ./Shell/deps_suricata.sh
