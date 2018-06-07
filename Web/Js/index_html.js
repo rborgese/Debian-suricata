@@ -2,11 +2,11 @@
 
 function Testbutton()
 {
-  const button = $("#Test").click(function ()
+  const button = $("#Install").click(function ()
   {
-    $.get("Shell/Start.sh", function (data)
+    $.get("/Shell/Start.sh", function (data)
     {
-      alert("Data: " + data)
+      console.log("Starting install")
     })
   })
 }
