@@ -1,21 +1,23 @@
 import subprocess
 import errno
-
+from bs4 import BeautifulSoup
 
 
 def call_start():
-    tmp_file = open("Outputs/Start.txt", "w")
-    subprocess.call(["./Shell/Start.sh"], stdout=tmp_file)
+    tmp_stdout = ""
+    subprocess.call(["./Shell/Start.sh"], stdout=tmp_stdout)
 
 def call_deps():
-    tmp_file = open("Outputs/deps.txt", "w")
+    tmp_stdout = ""
     subprocess.call(["./Shell/deps_suricata.sh"])
 
 def call_install():
-    tmp_file= open("Outputs/install.txt", "w")
-    subprocess.call(["./Shell/installSuricata.sh"], stdout=tmp_file)
-    tmp_file.close()
+    tmp_stdout = ""
+    subprocess.call(["./Shell/installSuricata.sh"], stdout=tmp_stdout)
+
+def call_test():
+    tmp_stdout = ""
+    subprocess.call(["./Shell/ls_test.sh"], stdout=tmp_stdout)
 
 
-
-call_install()
+call_test()
