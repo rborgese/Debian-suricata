@@ -20,7 +20,7 @@ class Handler(BaseHTTPRequestHandler):
 		if self.path == "/Shell/Start.sh":
 			self.path = "/Web/index.html"
 			print("Test")
-			#find_factorial(77999)
+			find_factorial(77999)
 
 		try:
 			# Check the file extension and set mime type
@@ -55,7 +55,7 @@ class Handler(BaseHTTPRequestHandler):
 
 		# Output error if the file doesn't exist
 		except IOError:
-			self.send_error(404,'File Not Found: %s' % self.path)
+			self.send_error(404,'File Not Found: {}'.format(self.path))
 
 try:
 	# Create a server and define the handler for requests
