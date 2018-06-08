@@ -2,3 +2,6 @@ suricata-*
 env
 __pycache__
 *_test*
+.pytest_cache
+*.pyc
+TESTing
