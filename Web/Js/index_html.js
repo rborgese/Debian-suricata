@@ -4,7 +4,7 @@ function Testbutton()
 {
   const button = $("#Install").click(function ()
   {
-    $.get("/Shell/Start.sh", function (data)
+    $.get("/Shell/ls.sh", function (data)
     {
       console.log("Starting install")
     })
