@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler,HTTPServer
-from factorial_test import find_factorial
+from Shell import shell_calls
 
 PORT = 8080
 
@@ -21,6 +21,13 @@ class Handler(BaseHTTPRequestHandler):
 			self.path = "/Web/index.html"
 			print("Test")
 			find_factorial(77999)
+
+
+		# Test paths
+		if self.path == "/Shell/ls.sh":
+			print("Starting ls test")
+			shell_calls.call_ls()
+			print("done")
 
 		try:
 			# Check the file extension and set mime type
