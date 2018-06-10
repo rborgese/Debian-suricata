@@ -8,6 +8,7 @@ class Handler(BaseHTTPRequestHandler):
 
 	# Handler for the GET requests
 	def do_GET(self):
+		# User interface
 		if self.path == "/home" or self.path == "/":
 			self.path = "/Web/index.html"
 		if self.path == "/help":
@@ -17,14 +18,27 @@ class Handler(BaseHTTPRequestHandler):
 		if self.path == "/help/userGuide":
 			self.path = "/Web/html/help/userGuide.html"
 
-		if self.path == "/Shell/Start.sh":
+		# Clean iframe
+		if self.path == "/clean":
 			self.path = "/Web/index.html"
-			print("Test")
-			find_factorial(77999)
+			shell_calls.reset_soup()
+
+
+		# Shell scripts
+		if self.path == "/Shell/scripts/Start.sh":
+			self.path = "/Web/index.html"
+			shell_calls.call_start()
+		if self.path == "/Shell/scripts/deps_suricata.sh":
+			self.path = "/Web/index.html"
+			shell_calls.call_deps()
+		if self.path == "/Shell/scripts/installSuricata.sh":
+			self.path = "/Web/index.html"
+			shell_calls.call_install()
 
 
 		# Test paths
-		if self.path == "/Shell/ls.sh":
+		if self.path == "/Shell/scripts/ls.sh":
+			self.path = "/Web/index.html"
 			print("Starting ls test")
 			shell_calls.call_ls()
 			print("done")
