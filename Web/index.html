@@ -13,6 +13,7 @@
 </head>
 
 <body class="bg-secondary">
+  <!-- Menu -->
   <div class="container-fluid bg-info" style="height: 50px;">
     <a href="/home"> <h4 class="float-left text-dark" style="margin: 0.5em auto;">Home</h4> </a>
     <a href="/help"> <h4 class="float-right text-dark" style="margin: 0.5em auto;">Help</h4> </a>
@@ -21,6 +22,8 @@
 
   <div class="container" style="width: 100%;">
     <h2 class="text-center text-warning" style="margin: 1em auto">Welcome to Suricata auto-setup</h2>
+
+    <a href="#" id="lelwayne" class="btn btn-primary">Go somewhere</a>
 
     <div class="row">
 
@@ -47,7 +50,7 @@
             <p class="card-text">Run some tests to make sure that everything was successfuly installed</p>
           </div>
           <div class="card-footer">
-            <a id="test" href="#" class="btn btn-primary" style="width: 100%;">Go</a>
+            <a id="Test" href="#" class="btn btn-primary" style="width: 100%;">Go</a>
           </div>
         </div>
       </div>
@@ -55,13 +58,13 @@
       <div class="col-sm-3" style="margin: 1em auto;">
         <div class="card">
           <div class="card-header">
-            <h5 class="text-center">Run</h5>
+            <h5 class="text-center">Control Center</h5>
           </div>
           <div class="card-body">
-            <p class="card-text">Runs Suricata</p>
+            <p class="card-text">Here you can manage your suricata setup and review reports</p>
           </div>
           <div class="card-footer">
-            <a id="Run" href="#" class="btn btn-primary" style="width: 100%;">Go</a>
+            <a id="Run" href="#" class="btn btn-primary" style="width: 100%;" data-container="body" data-toggle="popover" data-placement="top" data-content="Error: Suricata not running">Go</a>
           </div>
         </div>
       </div>
@@ -79,8 +82,8 @@
 
   <!-- First Jquery then Popper.js then Bootstrap-->
   <script src ="Web/Jquery/jquery-3.3.1.js"></script>
-  <script src="Web/Js/popper.min.js"></script>
-  <script src="Web/Js/bootstrap.min.js"></script>
+  <!-- <script src="Web/Js/popper.min.js"></script> -->
+  <script src="Web/Js/bootstrap.bundle.min.js"></script>
 
   <!-- Custom scripts -->
   <script src="Web/Js/index_html.js"></script>
