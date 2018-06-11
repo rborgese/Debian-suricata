@@ -28,8 +28,8 @@ def reset_soup():
         shellout.write(str(soup))
     print("Done")
 
-# Shell calls
 
+# Shell calls
 def call_start():
     output = "Adding execute permissions"
     subprocess.run(["./Shell/scripts/Start.sh"])
@@ -45,8 +45,8 @@ def call_install():
     out_array = str(output.stdout).split()
     generic_soup("Making and installing")
 
-# Shell tests
 
+# Shell tests
 def call_ls():
     output = subprocess.run(["./Shell/tests/ls.sh"], stdout=subprocess.PIPE, universal_newlines=True)
     out_array = str(output.stdout).split()
@@ -54,11 +54,15 @@ def call_ls():
         generic_soup(word)
 
 def call_cd():
-    try:
-        output = subprocess.run(["./Shell/tests/cd.sh"], stderr=subprocess.STDOUT)
-    except (OSError, subprocess.CalledProcessError) as e:
-        print(e)
+    output = subprocess.run(["./Shell/tests/cd.sh"], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    if not output.stderr:
+        generic_soup("No error")
+    if output.stderr:
+        generic_soup("Error: " + str(output.stderr))
 
-
-
-call_cd()
+def call_bad_cd():
+    output = subprocess.run(["./Shell/tests/bad_cd.sh"], stderr=subprocess.PIPE)
+    if not output.stderr:
+        generic_soup("No error")
+    if output.stderr:
+        generic_soup("Error: " + str(output.stderr))
