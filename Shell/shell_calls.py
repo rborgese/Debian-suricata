@@ -1,4 +1,4 @@
-from subprocess import PIPE, run
+import subprocess
 import errno
 from bs4 import BeautifulSoup
 
@@ -9,12 +9,13 @@ def generic_soup(text):
     tag = soup.find("div", {"id": "shellout"})
     newTag = soup.new_tag("p")
     newTag.append(text)
-    tag.append(newTag)
-    tag.append("\n")
+    tag.div.append(newTag)
+    tag.div.append("\n")
     with open("Web/html/outputs/shell_out.html", "w") as shellout:
         shellout.write(str(soup))
 
 def reset_soup():
+    print("Reseting shell_out")
     html_file = open("Web/html/outputs/shell_out.html").read()
     soup = BeautifulSoup(html_file, "html.parser")
     tag = soup.find("div", {"id": "shellout"})
@@ -25,29 +26,39 @@ def reset_soup():
     tag.append("\n")
     with open("Web/html/outputs/shell_out.html", "w") as shellout:
         shellout.write(str(soup))
+    print("Done")
 
 # Shell calls
 
 def call_start():
     output = "Adding execute permissions"
-    run(["./Shell/scripts/Start.sh"])
+    subprocess.run(["./Shell/scripts/Start.sh"])
     generic_soup(output)
 
 def call_deps():
-    output = run(["./Shell/scripts/deps_suricata.sh"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    output = subprocess.run(["./Shell/scripts/deps_suricata.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     out_array = str(output.stdout).split()
     generic_soup("Installing all dependencies")
 
 def call_install():
-    output = run(["./Shell/scripts/installSuricata.sh"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    output = suprocess.run(["./Shell/scripts/installSuricata.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     out_array = str(output.stdout).split()
     generic_soup("Making and installing")
 
 # Shell tests
 
 def call_ls():
-    output = run(["./Shell/scripts/ls.sh"], stdout=PIPE, universal_newlines=True)
+    output = subprocess.run(["./Shell/tests/ls.sh"], stdout=subprocess.PIPE, universal_newlines=True)
     out_array = str(output.stdout).split()
-    generic_soup("lil wayne")
+    for word in out_array:
+        generic_soup(word)
 
-reset_soup()
+def call_cd():
+    try:
+        output = subprocess.run(["./Shell/tests/cd.sh"], stderr=subprocess.STDOUT)
+    except (OSError, subprocess.CalledProcessError) as e:
+        print(e)
+
+
+
+call_cd()
