@@ -13,17 +13,20 @@
 </head>
 
 <body class="bg-secondary">
-  <!-- Menu -->
+  <!-- Menu
   <div class="container-fluid bg-info" style="height: 50px;">
     <a href="/home"> <h4 class="float-left text-dark" style="margin: 0.5em auto;">Home</h4> </a>
     <a href="/help"> <h4 class="float-right text-dark" style="margin: 0.5em auto;">Help</h4> </a>
   </div>
+-->
+  <nav class="navbar navbar-expand-lg bg-info justify-content-between" style="height: 50px;">
+    <a href="/home"> <h4 class="float-left text-dark" style="margin: 0.5em auto;">Home</h4> </a>
+    <a href="/help"> <h4 class="float-right text-dark" style="margin: 0.5em auto;">Help</h4> </a>
+  </nav>
 
 
   <div class="container" style="width: 100%;">
     <h2 class="text-center text-warning" style="margin: 1em auto">Welcome to Suricata auto-setup</h2>
-
-    <a href="#" id="lelwayne" class="btn btn-primary">Go somewhere</a>
 
     <div class="row">
 
@@ -50,7 +53,7 @@
             <p class="card-text">Run some tests to make sure that everything was successfuly installed</p>
           </div>
           <div class="card-footer">
-            <a id="Test" href="#" class="btn btn-primary" style="width: 100%;">Go</a>
+            <a id="Test" class="btn btn-primary" style="width: 100%;">Go</a>
           </div>
         </div>
       </div>
@@ -64,18 +67,28 @@
             <p class="card-text">Here you can manage your suricata setup and review reports</p>
           </div>
           <div class="card-footer">
-            <a id="Run" href="#" class="btn btn-primary" style="width: 100%;" data-container="body" data-toggle="popover" data-placement="top" data-content="Error: Suricata not running">Go</a>
+            <a id="Run" class="btn btn-primary" style="width: 100%;" data-container="body" data-toggle="popover" data-placement="top" data-content="Error: Suricata not running">Go</a>
           </div>
         </div>
       </div>
 
     </div>
 
-    <div class="container bg-light" style="width: 100%; margin: 1em auto;">
-      <!-- Hidden Iframe
-      <iframe src="Web/html/outputs/install.html" style="width: 0; height: 0; border: 0; border: none; position: absolute; visibility: hidden;"></iframe>
-      -->
-      <iframe src="Web/html/outputs/shell_out.html" style="width: 100%; border: 0;"></iframe>
+    <div class="row">
+
+      <div class="container bg-light" style="width: 90%; margin: 1em auto;">
+        <!-- Hidden Iframe
+        <iframe src="Web/html/outputs/install.html" style="width: 0; height: 0; border: 0; border: none; position: absolute; visibility: hidden;"></iframe>
+        -->
+        <iframe src="Web/html/outputs/shell_out.html" style="width: 100%; border: 0;"></iframe>
+      </div>
+      <!-- Clean iframe button -->
+      <div class="col-sm-1 align-middle">
+        <a id="logClean" class="btn btn-primary" style="height: 40px;margin-top: 20px">Clean log</a>
+        <a id="lsTest" class="btn btn-primary" style="height: 40px;margin-top: 10px">Test script</a>
+        <a id="cdTest" class="btn btn-primary" style="height: 40px;margin-top: 10px">Test error</a>
+      </div>
+
     </div>
 
   </div>
