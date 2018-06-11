@@ -45,7 +45,7 @@ class Handler(BaseHTTPRequestHandler):
 		if self.path == "/Shell/tests/cd.sh":
 			self.path = "/Web/index.html"
 			print("Starting cd test")
-			shell_calls.call_cd()
+			shell_calls.call_bad_cd()
 			print("Done")
 
 		try:
