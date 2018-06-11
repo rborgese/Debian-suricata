@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 wget http://www.openinfosecfoundation.org/download/suricata-4.0.4.tar.gz
 
 tar -xvzf suricata-4.0.4.tar.gz
