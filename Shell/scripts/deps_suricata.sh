@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 sudo apt-get update
 
 sudo apt-get -y install libpcre3 libpcre3-dbg libpcre3-dev \
