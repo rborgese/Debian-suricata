@@ -19,7 +19,7 @@ class Handler(BaseHTTPRequestHandler):
 			self.path = "/Web/html/help/userGuide.html"
 
 		# Clean iframe
-		if self.path == "/clean":
+		if self.path == "/Shell/clean":
 			self.path = "/Web/index.html"
 			shell_calls.reset_soup()
 
@@ -37,15 +37,19 @@ class Handler(BaseHTTPRequestHandler):
 
 
 		# Test paths
-		if self.path == "/Shell/scripts/ls.sh":
+		if self.path == "/Shell/tests/ls.sh":
 			self.path = "/Web/index.html"
 			print("Starting ls test")
 			shell_calls.call_ls()
-			print("done")
+			print("Done")
+		if self.path == "/Shell/tests/cd.sh":
+			self.path = "/Web/index.html"
+			print("Starting cd test")
+			shell_calls.call_cd()
+			print("Done")
 
 		try:
 			# Check the file extension and set mime type
-
 			sendReply = False
 			if self.path.endswith(".html"):
 				mimetype = "text/html"
