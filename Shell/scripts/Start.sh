@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 chmod u+x Shell/deps_suricata.sh
 chmod u+x Shell/installSuricata.sh
 chmod u+x Shell/startSuricata.sh
