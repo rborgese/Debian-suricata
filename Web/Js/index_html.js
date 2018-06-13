@@ -9,14 +9,6 @@ function installButton()
     {
       console.log("Starting install")
     })
-    $.get("/Shell/scripts/deps_suricata.sh", function ()
-    {
-      console.log("Installing all dependencies")
-    })
-    $.get("/Shell/scripts/installSuricata.sh", function ()
-    {
-      console.log("Runnign install script")
-    })
   })
 }
 
