@@ -3,7 +3,7 @@ from Shell import shell_calls
 
 PORT = 8080
 
-# This class will handle any incoming requests
+# This class will handle cofigured incoming requests
 class Handler(BaseHTTPRequestHandler):
 
 	# Handler for the GET requests
@@ -28,11 +28,7 @@ class Handler(BaseHTTPRequestHandler):
 		if self.path == "/Shell/scripts/Start.sh":
 			self.path = "/Web/index.html"
 			shell_calls.call_start()
-		if self.path == "/Shell/scripts/deps_suricata.sh":
-			self.path = "/Web/index.html"
 			shell_calls.call_deps()
-		if self.path == "/Shell/scripts/installSuricata.sh":
-			self.path = "/Web/index.html"
 			shell_calls.call_install()
 
 
