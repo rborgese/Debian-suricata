@@ -1,10 +1,14 @@
-suricata-*
-env
+# For python
 __pycache__
-*_test*
-.pytest_cache
 *.pyc
+.pytest_cache
+env
+
+# Custom
+suricata-*
+*_test*
 TESTing
+*.obj
 
 # Shell outputs no need for changes
 Outputs/*.txt
