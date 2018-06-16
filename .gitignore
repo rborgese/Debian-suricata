@@ -5,3 +5,6 @@ __pycache__
 .pytest_cache
 *.pyc
 TESTing
+
+# Shell outputs no need for changes
+Outputs/*.txt
