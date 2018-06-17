@@ -14,5 +14,8 @@ chmod u+x Shell/tests/cd.sh
 chmod u+x Shell/tests/ls.sh
 chmod u+x Shell/tests/sudoTest.sh
 
+# For development only ---> ignores future changes in Outputs/
+# git update-index --assume-unchanged Outputs/*
 
+# Run scripts in chain
 # ./Shell/deps_suricata.sh
