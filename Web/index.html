@@ -82,11 +82,19 @@
         -->
         <iframe src="Web/html/outputs/shell_out.html" style="width: 100%; border: 0;"></iframe>
       </div>
-      <!-- Clean iframe button -->
       <div class="col-sm-1 align-middle">
-        <a id="logClean" class="btn btn-primary" style="height: 40px;margin-top: 20px">Clean log</a>
-        <a id="lsTest" class="btn btn-primary" style="height: 40px;margin-top: 10px">Test script</a>
-        <a id="cdTest" class="btn btn-primary" style="height: 40px;margin-top: 10px">Test error</a>
+        <!-- Clean iframe button -->
+        <a id="logClean" class="btn btn-primary text-light" style="height: 40px;margin-top: 20px">Clean log</a>
+        <!-- Tests dropleft -->
+        <div class="btn-group dropleft" style="height: 40px;margin-top: 10px">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Tests
+          </button>
+          <div class="dropdown-menu bg-secondary">
+            <a href="#" id="lsTest" class="dropdown-item btn-primary" style="height: 40px;margin-top: 10px">Test script</a>
+            <a href="#" id="cdTest" class="dropdown-item btn-primary" style="height: 40px;margin-top: 10px">Test error</a>
+          </div>
+        </div>
       </div>
 
     </div>
