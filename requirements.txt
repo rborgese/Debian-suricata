@@ -2,3 +2,5 @@ beautifulsoup4
 pytest
 bottle
 pycrypto
+gevent-websocket
+websocket-client
