@@ -1,7 +1,7 @@
 
 function listen_websocket()
 {
-  var socket = new WebSocket("ws://127.0.0.1:8080/websocket")
+  var socket = new WebSocket("ws://127.0.0.1:2890/websocket")
   const the_div = $("#shellout")
   socket.onmessage =  function (event)
   {
@@ -10,4 +10,4 @@ function listen_websocket()
 }
 
 
-listen_websocket()
+//listen_websocket()
