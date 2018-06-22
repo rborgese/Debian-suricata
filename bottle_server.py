@@ -80,7 +80,7 @@ def hello():
     return index
 
 
-server = WSGIServer(("127.0.0.1", 8080), app, handler_class=WebSocketHandler)
+server = WSGIServer(("127.0.0.1", 2890), app, handler_class=WebSocketHandler)
 
 try:
     server.serve_forever()

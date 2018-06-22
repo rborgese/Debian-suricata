@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from Shell import shell_calls
 
-PORT = 8080
+PORT = 2890
 
 # This class will handle cofigured incoming requests
 class Handler(BaseHTTPRequestHandler):
