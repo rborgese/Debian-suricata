@@ -1,8 +1,8 @@
 
+
 // Shell calls
 
-function installButton()
-{
+function installButton() {
   const button = $("#Install").click(function ()
   {
     $.get("/Shell/scripts/Start.sh", function ()
@@ -12,21 +12,11 @@ function installButton()
   })
 }
 
-function testButton()
-{
-  const button = $("#Test").click(function ()
-  {
-    $.get("/Shell/scripts/ls.sh", function ()
-    {
-      console.log("Testing")
-    })
-  })
-}
+
 
 // Control center
 
-function controlCenter()
-{
+function controlCenter() {
   const button = $("#Run").click(function ()
   {
     $.get("/Shell/scripts/startSuricata.sh", function ()
@@ -36,40 +26,47 @@ function controlCenter()
   })
 }
 
-// Iframe clean button
+// Div clean button
 
-function cleanButton()
-{
-  const button = $("#logClean").click(function ()
-  {
-    $.get("/Shell/clean", function()
-    {
-      console.log("Cleaning logs")
-    })
+function cleanButton() {
+  const the_div = $("#newFrame")
+  const cleanButton = $("#logClean").click(function () {
+    the_div.empty()
   })
 }
 
 // Test buttons
 
-function testScriptButton()
-{
-  const button = $("#lsTest").click(function ()
-  {
-    $.get("/Shell/tests/ls.sh", function ()
-    {
-      console.log("Starting ls test")
-    })
+
+function testScriptButton() {
+  const the_div = $("#newFrame")
+  const ls_test = $("#lsTest").click(function() {
+    var socket = new WebSocket("ws://127.0.0.1:2890/websocket")
+    console.log("lstest")
+    socket.onopen = function () {
+      socket.send("lsTest")
+      socket.onmessage =  function (event)
+      {
+        console.log(event.data)
+        the_div.append("<p>" + event.data + "</p>")
+      }
+    }
   })
 }
 
-function testErrorButton()
-{
-  const button = $("#cdTest").click(function ()
-  {
-    $.get("/Shell/tests/cd.sh", function ()
-    {
-      console.log("Starting cd test")
-    })
+function testErrorButton() {
+  const the_div = $("#newFrame")
+  const cd_test = $("#cdTest").click(function() {
+    var socket = new WebSocket("ws://127.0.0.1:2890/websocket")
+    console.log("lel test")
+    socket.onopen = function () {
+      socket.send("cdTest")
+      socket.onmessage =  function (event)
+      {
+        console.log(event.data)
+        the_div.append("<p>" + event.data + "</p>")
+      }
+    }
   })
 }
 
@@ -78,8 +75,6 @@ function testErrorButton()
 // Calling all functions
 
 installButton()
-
-testButton()
 
 controlCenter()
 
