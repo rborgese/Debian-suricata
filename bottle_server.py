@@ -3,6 +3,7 @@ from gevent.pywsgi import WSGIServer
 from geventwebsocket import WebSocketError
 from geventwebsocket.handler import WebSocketHandler
 from Shell import shell_calls
+import json
 
 app = Bottle()
 
@@ -18,16 +19,25 @@ def read_file(theFile):
 # The websocket
 @app.route("/websocket")
 def handle_websocket():
-    wsock = request.environ.get("wsgi.websocket")
-    if not wsock:
-        abort(400, "Expected a websocket request")
+    if request.environ.get("wsgi.websocket"):
+        wsock = request.environ["wsgi.websocket"]
+        if not wsock:
+            abort(400, "Expected a websocket request")
 
-    while True:
-        try:
-            message = wsock.receive()
-            wsock.send("Message Received")
-        except WebSocketError:
-            wsock.send(str(WebSocketError))
+        if wsock:
+            try:
+                message = wsock.receive()
+                print(message)
+                if message == "lsTest":
+                    response = shell_calls.call_ls()
+                    wsock.send(response)
+                elif message == "cdTest":
+                    wsock.send(message)
+                else:
+                    wsock.send("Unrecognized message")
+            except WebSocketError as e:
+                print(e)
+
 
 
 
