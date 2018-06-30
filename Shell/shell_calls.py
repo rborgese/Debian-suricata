@@ -28,9 +28,9 @@ def call_start():
     out_path = "Outputs/Start.txt"
     clean_log(out_path)
     output = subprocess.run(["./Shell/scripts/Start.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
-    generic_soup("Adding execute permissions")
+    yield "Adding execute permissions"
     if not output.stderr:
-        generic_soup("Success")
+        yield "Success"
     if output.stderr:
         for line in output.stderr.splitlines():
             new_line_txt = line + "\n"
@@ -79,14 +79,14 @@ def call_ls():
     clean_log(out_path)
     output = subprocess.run(["./Shell/tests/ls.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     if not output.stderr:
-        generic_soup("No error")
+        yield "No error"
         for line in output.stdout.splitlines():
             new_line_txt = line + "\n"
             output_log(new_line_txt, out_path)
     if output.stderr:
         for line in output.stderr.splitlines():
             new_line_txt = line + "\n"
-            generic_soup("Error: " + line)
+            yield "Error: " + line
             output_log(new_line_txt, out_path)
 
 def call_cd():
