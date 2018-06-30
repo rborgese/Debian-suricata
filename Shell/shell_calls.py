@@ -23,9 +23,11 @@ def output_log(log, path):
 
 
 
-# Shell calls
+## Shell calls
+
+# Function that calls shell script to add execute permissions to scripts
 def call_start():
-    out_path = "Outputs/Start.txt"
+    out_path = "Outputs/Start.log"
     clean_log(out_path)
     output = subprocess.run(["./Shell/scripts/Start.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     yield "Adding execute permissions"
@@ -34,48 +36,52 @@ def call_start():
     if output.stderr:
         for line in output.stderr.splitlines():
             new_line_txt = line + "\n"
-            generic_soup("Error: " + line)
+            yield "Error: " + line
             output_log(new_line_txt, out_path)
 
+# Function that calls shell script to install all necessary dependencies
 def call_deps():
-    out_path = "Outputs/deps.txt"
+    out_path = "Outputs/deps.log"
     clean_log(out_path)
-    generic_soup("Installing all necessary dependencies, creating log file at: {}".format(out_path))
-    generic_soup("This might take a while")
+    yield "Installing all necessary dependencies, creating log file at: {}".format(out_path)
+    yield "This might take a while"
     output = subprocess.run(["./Shell/scripts/deps_suricata.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     if not output.stderr:
-        generic_soup("All requirements met")
+        yield "All requirements met"
         for line in output.stdout.splitlines():
             new_line_txt = line + "\n"
             output_log(new_line_txt, out_path)
     if output.stderr:
-        generic_soup("An error ocurred, please check the log file at {}, the error will also be displayed below".format(out_path))
+        yield "An error ocurred, please check the log file at {}, the error will also be displayed below".format(out_path)
         for line in output.stderr.splitlines():
             new_line_txt = line + "\n"
-            generic_soup("Error: " + line)
+            yield "Error: " + line
             output_log(new_line_txt, out_path)
 
+# Function that calls shell script to make and install suricata
 def call_install():
-    out_path = "Outputs/install.txt"
+    out_path = "Outputs/install.log"
     clean_log(out_path)
-    generic_soup("Making and installing, creating log file at: {}".format(out_path))
-    generic_soup("This might also take a while")
+    yield "Making and installing, creating log file at: {}".format(out_path)
+    yield "This might also take a while"
     output = suprocess.run(["./Shell/scripts/installSuricata.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     if not output.stderr:
-        generic_soup("It seems everything went ok, however it is recommended to run Simple Test")
+        yield "It seems everything went ok, however it is recommended to run Simple Test"
         for line in output.stdout.splitlines():
             new_line_txt = line + "\n"
             output_log(new_line_txt, out_path)
     if output.stderr:
         for line in output.stderr.splitlines():
             new_line_txt = line + "\n"
-            generic_soup("Error: " + line)
+            yield "Error: " + line
             output_log(new_line_txt, out_path)
 
 
-# Shell tests
+## Shell tests
+
+# Calls ls, outputs stdout to log file
 def call_ls():
-    out_path = "Outputs/ls.txt"
+    out_path = "Outputs/ls.log"
     clean_log(out_path)
     output = subprocess.run(["./Shell/tests/ls.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     if not output.stderr:
@@ -86,35 +92,37 @@ def call_ls():
     if output.stderr:
         for line in output.stderr.splitlines():
             new_line_txt = line + "\n"
-            yield "Error: " + line
+            yield "Error: " + line + ", Check log file at {}".format(out_path)
             output_log(new_line_txt, out_path)
 
+# Calls cd into a directory outputs stdout to log file
 def call_cd():
-    out_path = "Outputs/cd.txt"
+    out_path = "Outputs/cd.log"
     clean_log(out_path)
     output = subprocess.run(["./Shell/tests/cd.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     if not output.stderr:
-        generic_soup("No error")
+        yield "No error"
         for line in output.stdout.splitlines():
             new_line_txt = line + "\n"
             output_log(new_line_txt, out_path)
     if output.stderr:
         for line in output.stderr.splitlines():
             new_line_txt = line + "\n"
-            generic_soup("Error: " + line)
+            yield "Error: " + line + ", Check log file at {}".format(out_path)
             output_log(new_line_txt, out_path)
 
+# Calls cd into fake directories to output stderr to html and log file
 def call_bad_cd():
-    out_path = "Outputs/cd.txt"
+    out_path = "Outputs/cd.log"
     clean_log(out_path)
     output = subprocess.run(["./Shell/tests/bad_cd.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     if not output.stderr:
-        generic_soup("No error")
+        yield "No error"
         for line in output.stdout.splitlines():
             new_line_txt = line + "\n"
             output_log(new_line_txt, out_path)
     if output.stderr:
         for line in output.stderr.splitlines():
             new_line_txt = line + "\n"
-            generic_soup("Error: " + line)
+            yield "Error: " + line + ", Check log file at {}".format(out_path)
             output_log(new_line_txt, out_path)
