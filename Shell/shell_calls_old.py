@@ -21,6 +21,39 @@ def output_log(log, path):
         file_open.write(log)
         file_open.close()
 
+# Template function using BeautifulSoup to add to html --> Deprecated
+def generic_soup(text):
+    html_file = open("Web/html/outputs/shell_out.html")
+    html_string = html_file.read()
+    html_file.close()
+    soup = BeautifulSoup(html_string, "html.parser")
+    tag = soup.find("div", {"id": "shellout"})
+    newTag = soup.new_tag("p")
+    newTag.append(text)
+    tag.div.append(newTag)
+    tag.div.append("\n")
+    with open("Web/html/outputs/shell_out.html", "w") as shellout:
+        shellout.write(str(soup))
+        shellout.close()
+
+
+# Function that cleans shell_out.html --> Deprecated
+def reset_soup():
+    print("Reseting shell_out")
+    html_file = open("Web/html/outputs/shell_out.html")
+    html_string = html_file.read()
+    html_file.close()
+    soup = BeautifulSoup(html_string, "html.parser")
+    tag = soup.find("div", {"id": "shellout"})
+    newTag = soup.new_tag("div")
+    tag.div.extract()
+    newTag.append("\n")
+    tag.append(newTag)
+    tag.append("\n")
+    with open("Web/html/outputs/shell_out.html", "w") as shellout:
+        shellout.write(str(soup))
+        shellout.close()
+    print("Done")
 
 
 # Shell calls
