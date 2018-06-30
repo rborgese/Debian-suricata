@@ -30,9 +30,15 @@ def handle_websocket():
                 print(message)
                 if message == "lsTest":
                     response = shell_calls.call_ls()
-                    wsock.send(response)
+                    for line in response:
+                        wsock.send(line)
                 elif message == "cdTest":
-                    wsock.send(message)
+                    response1 = shell_calls.call_cd()
+                    response2 = shell_calls.call_bad_cd()
+                    for line in response1:
+                        wsock.send(line)
+                    for line in response2:
+                        wsock.send(line)
                 else:
                     wsock.send("Unrecognized message")
             except WebSocketError as e:
@@ -54,11 +60,6 @@ def serve_jquery(filename):
 def serve_js(filename):
     return static_file(filename, root="Web/Js/")
 
-# Iframe for logs
-@app.route("/Web/html/outputs/<filename>")
-def serve_iframe(filename):
-    shell_out = read_file("Web/html/outputs/{}".format(filename))
-    return shell_out
 
 # Shell calls
 @app.route("/Shell/clean")
@@ -71,15 +72,6 @@ def start_install():
     #shell_calls.call_deps()
     #shell_calls.call_install()
 
-# Shell Tests
-@app.route("/Shell/tests/ls.sh")
-def test_ls():
-    shell_calls.call_ls()
-
-@app.route("/Shell/tests/cd.sh")
-def test_cd():
-    shell_calls.call_cd()
-    shell_calls.call_bad_cd()
 
 
 # User Interface
