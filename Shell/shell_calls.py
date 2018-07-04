@@ -9,7 +9,6 @@ def clean_log(path):
         new_file = open(path, "w")
         new_file.close()
     else:
-        print("File does not exist")
         new_file = open(path, "w")
         new_file.close()
 
@@ -40,12 +39,15 @@ def call_start():
             output_log(new_line_txt, out_path)
 
 # Function that calls shell script to install all necessary dependencies
-def call_deps():
+def call_deps(passwd):
     out_path = "Outputs/deps.log"
     clean_log(out_path)
     yield "Installing all necessary dependencies, creating log file at: {}".format(out_path)
     yield "This might take a while"
-    output = subprocess.run(["./Shell/scripts/deps_suricata.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    encoded_passwd = str.encode(passwd)
+    print(encoded_passwd)
+    print(type(encoded_passwd))
+    output = subprocess.run(["./Shell/scripts/deps_suricata.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, input=passwd, universal_newlines=True)
     if not output.stderr:
         yield "All requirements met"
         for line in output.stdout.splitlines():
@@ -64,7 +66,7 @@ def call_install():
     clean_log(out_path)
     yield "Making and installing, creating log file at: {}".format(out_path)
     yield "This might also take a while"
-    output = suprocess.run(["./Shell/scripts/installSuricata.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    output = subprocess.run(["./Shell/scripts/installSuricata.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     if not output.stderr:
         yield "It seems everything went ok, however it is recommended to run Simple Test"
         for line in output.stdout.splitlines():
