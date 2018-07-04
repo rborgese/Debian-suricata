@@ -1,13 +1,30 @@
+// Function for sending and receiving data trough WebSocket
+
+const log_div = $("#newFrame")
+
+function sendTroughSocket(string_command) {
+  var socket = new WebSocket("ws://127.0.0.1:2890/websocket")
+  socket.onopen = function () {
+    socket.send(string_command)
+    socket.onmessage = function (event)
+    {
+      log_div.append("<p>" + event.data + "</p>")
+    }
+  }
+}
+
+
 
 
 // Shell calls
 
 function installButton() {
-  const button = $("#Install").click(function ()
-  {
-    $.get("/Shell/scripts/Start.sh", function ()
-    {
-      console.log("Starting install")
+  const passwd_input = $("#the_passwd")
+  const button = $("#Install").click(function() {
+    $("#modal1").modal("show")
+    $("#passwd_send").click(function() {
+      $("#modal1").modal("hide")
+      sendTroughSocket("installNow " + passwd_input.val())
     })
   })
 }
@@ -29,9 +46,8 @@ function controlCenter() {
 // Div clean button
 
 function cleanButton() {
-  const the_div = $("#newFrame")
   const cleanButton = $("#logClean").click(function () {
-    the_div.empty()
+    log_div.empty()
   })
 }
 
@@ -39,34 +55,14 @@ function cleanButton() {
 
 
 function testScriptButton() {
-  const the_div = $("#newFrame")
-  const ls_test = $("#lsTest").click(function() {
-    var socket = new WebSocket("ws://127.0.0.1:2890/websocket")
-    console.log("lstest")
-    socket.onopen = function () {
-      socket.send("lsTest")
-      socket.onmessage =  function (event)
-      {
-        console.log(event.data)
-        the_div.append("<p>" + event.data + "</p>")
-      }
-    }
+  const ls_test = $("#lsTest").click(function () {
+    sendTroughSocket("lsTest")
   })
 }
 
 function testErrorButton() {
-  const the_div = $("#newFrame")
-  const cd_test = $("#cdTest").click(function() {
-    var socket = new WebSocket("ws://127.0.0.1:2890/websocket")
-    console.log("lel test")
-    socket.onopen = function () {
-      socket.send("cdTest")
-      socket.onmessage =  function (event)
-      {
-        console.log(event.data)
-        the_div.append("<p>" + event.data + "</p>")
-      }
-    }
+  const cd_test = $("#cdTest").click(function () {
+    sendTroughSocket("cdTest")
   })
 }
 
