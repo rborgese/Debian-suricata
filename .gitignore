@@ -11,4 +11,4 @@ TESTing
 *.obj
 
 # Shell outputs no need for changes
-Outputs/*.txt
+*.log
