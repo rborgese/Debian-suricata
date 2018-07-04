@@ -16,7 +16,7 @@ def read_file(theFile):
     return html
 
 
-# The websocket
+# The websocket route handler
 @app.route("/websocket")
 def handle_websocket():
     if request.environ.get("wsgi.websocket"):
@@ -24,11 +24,30 @@ def handle_websocket():
         if not wsock:
             abort(400, "Expected a websocket request")
 
-        if wsock:
+        elif wsock:
             try:
                 message = wsock.receive()
                 print(message)
-                if message == "lsTest":
+                # String_commands for installing testing and control center
+                if message.startswith("installNow"):
+                    passwd_rcv = message.replace("installNow ", "")
+                    print(passwd_rcv)
+                    response1 = shell_calls.call_start()
+                    for line in response1:
+                        wsock.send(line)
+                    response2 = shell_calls.call_deps(passwd_rcv)
+                    for line in response2:
+                        wsock.send(line)
+                    response3 = shell_calls.call_install(passwd_rcv)
+                    for line in response3:
+                        wsock.send(line)
+                elif message == "testNow":
+                    response = ["lel", "wayne"]
+                    for line in response:
+                        wsock.send(line)
+
+                # String_commands for testing websocket
+                elif message == "lsTest":
                     response = shell_calls.call_ls()
                     for line in response:
                         wsock.send(line)
@@ -39,10 +58,13 @@ def handle_websocket():
                         wsock.send(line)
                     for line in response2:
                         wsock.send(line)
+                # Refuse non implemented String_commands
                 else:
-                    wsock.send("Unrecognized message")
+                    abort(400, "Unrecognized command")
             except WebSocketError as e:
                 print(e)
+        else:
+            print("Something bad probably happened")
 
 
 
@@ -59,18 +81,6 @@ def serve_jquery(filename):
 @app.route("/Web/Js/<filename>")
 def serve_js(filename):
     return static_file(filename, root="Web/Js/")
-
-
-# Shell calls
-@app.route("/Shell/clean")
-def clean_iframe():
-    shell_calls.reset_soup()
-
-@app.route("/Shell/scripts/Start.sh")
-def start_install():
-    shell_calls.call_start()
-    #shell_calls.call_deps()
-    #shell_calls.call_install()
 
 
 
