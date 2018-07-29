@@ -31,7 +31,6 @@ def handle_websocket():
                 # String_commands for installing testing and control center
                 if message.startswith("installNow"):
                     passwd_rcv = message.replace("installNow ", "")
-                    print(passwd_rcv)
                     response1 = shell_calls.call_start()
                     for line in response1:
                         wsock.send(line)
@@ -46,7 +45,7 @@ def handle_websocket():
                     for line in response:
                         wsock.send(line)
 
-                # String_commands for testing websocket
+                # String_commands for testing websocket and shell output
                 elif message == "lsTest":
                     response = shell_calls.call_ls()
                     for line in response:
@@ -57,6 +56,12 @@ def handle_websocket():
                     for line in response1:
                         wsock.send(line)
                     for line in response2:
+                        wsock.send(line)
+                elif message.startswith("sudoTest"):
+                    passwd_rcv = message.replace("sudoTest ", "")
+                    print(passwd_rcv)
+                    response = shell_calls.call_sudo_try(passwd_rcv)
+                    for line in response:
                         wsock.send(line)
                 # Refuse non implemented String_commands
                 else:
