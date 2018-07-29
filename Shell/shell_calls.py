@@ -44,21 +44,28 @@ def call_deps(passwd):
     clean_log(out_path)
     yield "Installing all necessary dependencies, creating log file at: {}".format(out_path)
     yield "This might take a while"
-    encoded_passwd = str.encode(passwd)
-    print(encoded_passwd)
-    print(type(encoded_passwd))
-    output = subprocess.run(["./Shell/scripts/deps_suricata.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, input=passwd, universal_newlines=True)
+    if str(type(passwd)) == "<class 'str'>":
+        passwd = str.encode(passwd)
+    try:
+        subprocess.run(["sudo", "whoami"], stderr=subprocess.STDOUT,input=passwd, timeout=3)
+    except subprocess.TimeoutExpired as e:
+        yield e
+        return
+    output = subprocess.run(["./Shell/scripts/deps_suricata.sh"], stderr=subprocess.STDOUT, timeout=3, input=passwd)
     if not output.stderr:
         yield "All requirements met"
         for line in output.stdout.splitlines():
             new_line_txt = line + "\n"
             output_log(new_line_txt, out_path)
     if output.stderr:
+        print("the output ", output.stderr)
         yield "An error ocurred, please check the log file at {}, the error will also be displayed below".format(out_path)
         for line in output.stderr.splitlines():
             new_line_txt = line + "\n"
             yield "Error: " + line
             output_log(new_line_txt, out_path)
+
+
 
 # Function that calls shell script to make and install suricata
 def call_install():
@@ -128,3 +135,29 @@ def call_bad_cd():
             new_line_txt = line + "\n"
             yield "Error: " + line + ", Check log file at {}".format(out_path)
             output_log(new_line_txt, out_path)
+
+# Gets the password from websocket runs sudo whoami if password is incorrect yields timeout exception
+def call_sudo_try(passwd):
+    out_path = "Outputs/sudo_try.log"
+    clean_log(out_path)
+    if str(type(passwd)) == "<class 'str'>":
+        passwd = str.encode(passwd)
+    try:
+        output = subprocess.run(["sudo", "whoami"], input=passwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
+        if not output.stderr:
+            yield "Password accepted"
+            for line in output.stdout.splitlines():
+                line = line.decode()
+                yield line
+                new_line_txt = line + "\n"
+                output_log(new_line_txt, out_path)
+        if output.stderr:
+            yield "An error ocurred, please check the log file at {}, the error will also be displayed below".format(out_path)
+            for line in output.stderr.splitlines():
+                line = line.decode()
+                new_line_txt = line + "\n"
+                yield "Error: " + line
+                output_log(new_line_txt, out_path)
+    except subprocess.TimeoutExpired as e:
+        yield str(e) + ", Your password might be incorrect"
+        return
