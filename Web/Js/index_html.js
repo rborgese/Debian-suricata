@@ -57,12 +57,25 @@ function cleanButton() {
 function testScriptButton() {
   const ls_test = $("#lsTest").click(function () {
     sendTroughSocket("lsTest")
+    log_div.scrollTop(log_div[0].scrollHeight)
   })
 }
 
 function testErrorButton() {
   const cd_test = $("#cdTest").click(function () {
     sendTroughSocket("cdTest")
+    log_div.scrollTop(log_div[0].scrollHeight)
+  })
+}
+
+function testSudoButton() {
+  const passwd_input = $("#the_passwd_test")
+  const button = $("#sudoTest").click(function() {
+    $("#modal2").modal("show")
+    $("#passwd_send_test").click(function() {
+      $("#modal2").modal("hide")
+      sendTroughSocket("sudoTest " + passwd_input.val())
+    })
   })
 }
 
@@ -79,3 +92,5 @@ cleanButton()
 testScriptButton()
 
 testErrorButton()
+
+testSudoButton()
